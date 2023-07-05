@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> відео </title>
+		<link rel="stylesheet" href="style.css">
+		<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+
+		</style>
+	
+	</head>
+	<body >
+	<div id="particles-js" style="background-size: cover;">
+		<div style="display:flex; justify-content: center; align-items:center; min-height: 100px; width: 100%;">
+
+		<div id=video1 style="width: 600px; height: 400px; border: solid 2px #32a1ce; margin: 5" > 
+		<center>
+		<p style="color: green; font-size: 33px;">
+		 Збережене <br>
+		<video src="video.mp4" controls height="300" width="500">
+
+		</center>
+		</p>
+		</div>
+
+		<div id=video2 style="width: 600px; height: 400px; border: solid 2px #32a1ce; margin: 5"> 
+		<center>
+		<p style="color: green; font-size: 33px;">
+		З камери <br>
+		<video autoplay id="videoElement" height="300" width="500">
+			
+		</video><br>
+		<button id="stop">Stop Video</button>
+		<button id="start">Start Video</button>
+		</center>
+		</p>
+		</div>
+		
+		</div>
+
+		<div style="display:flex; justify-content: center; align-items:center; min-height: 100px; width: 100%;">
+
+		<div id=video1 style="width: 600px; height: 400px; border: solid 2px #32a1ce; margin: 5" > 
+		<center>
+		<p style="color: green; font-size: 33px;">
+		 З гаджета<br>
+		<video src="video.mp4" controls height="300" width="500">
+		</center>
+		</p>
+		</div>
+
+		<div id=video2 style="width: 600px; height: 400px; border: solid 2px #32a1ce; margin: 5"> 
+		<center>
+		<p style="color: green; font-size: 33px;">
+		Таємниця <br>
+		<video src="video.mp4" controls height="300" width="500">
+		</center>
+		</p>
+		</div>
+		</div>
+	</div>
+	<script>
+
+		var video = document.querySelector("#videoElement");
+		var stopVideo = document.querySelector("#stop");
+		var startVideo = document.querySelector("#start");
+
+
+		stopVideo.addEventListener("click", stop, false);
+		startVideo.addEventListener("click", startWebCam, false);
+
+
+		function startWebCam() {
+			if (navigator.mediaDevices.getUserMedia) {
+				navigator.mediaDevices.getUserMedia({ video: true })
+					.then(function (stream) {
+						video.srcObject = stream;
+					})
+					.catch(function (err0r) {
+						console.log("Something went wrong!");
+					});
+			}
+		}
+
+		function stop(e) {
+			var stream = video.srcObject;
+			var tracks = stream.getTracks();
+
+			for (var i = 0; i < tracks.length; i++) {
+				var track = tracks[i];
+				track.stop();
+			}
+
+			video.srcObject = null;
+		}
+	</script>
+		<script type="text/javascript" src="particles.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+
+	</body>
+</html>
